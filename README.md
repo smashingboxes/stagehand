@@ -7,11 +7,12 @@ Usage
 =====
 
     class ApplicationController < ActionController::Base
-      stagehand = Stagehand.new(
-        :client_id = 'YOUR_APP_CLIENT_ID',
-        :client_secret = 'YOUR_APP_CLIENT_SECRET',
-        :resource_host = 'YOUR_APP_RESOURCE_HOST'
-      )
+      stagehand = Stagehand::Client.new({
+        client_id: 'YOUR_APP_CLIENT_ID',
+        client_secret: 'YOUR_APP_CLIENT_SECRET',
+        resource_host: 'YOUR_APP_RESOURCE_HOST',
+        client_host: 'YOUR_APP_HOST_WITH_PORT'
+      })
     end
     
     class SessionsController < ApplicationController

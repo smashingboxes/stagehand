@@ -1,0 +1,16 @@
+*.gem
+.bundle
+Gemfile.lock
+pkg/*
+
+# Emacs
+*~
+.\#*
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.*swp
+TAGS

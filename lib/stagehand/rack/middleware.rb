@@ -21,8 +21,7 @@ module Stagehand::Rack
           env["PATH_INFO"] = "/"
           env["QUERY_STRING"] = ""
           status, headers, response = @app.call(env)
-          status = 302
-          [status, headers, response]
+          [302, {'Location'=>'/'}, response]
         else
           @app.call(env)
         end

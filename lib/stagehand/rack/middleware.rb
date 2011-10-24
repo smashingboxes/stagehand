@@ -18,7 +18,7 @@ module Stagehand::Rack
                                    )
           env['rack.session'][:access_token] = token_response["access_token"]
           # redirect to root
-          env["PATH_INFO"] = "/test"
+          env["PATH_INFO"] = "/"
           env["QUERY_STRING"] = ""
           @app.call(env)
         else

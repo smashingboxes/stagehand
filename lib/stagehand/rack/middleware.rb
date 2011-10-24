@@ -9,7 +9,7 @@ module Stagehand::Rack
 
       response = catch :stagehand do
         if request.path == '/callback'
-          # params = Rack::Utils.parse_query(env['rack.input'].read, "&")
+          params = Rack::Utils.parse_query(env['rack.input'].read, "&")
           # response = HTTParty.post(Stagehand.access_token_url, :body => {
           #                            :client_id => Stagehand.config.client_id, 
           #                            :client_secret => Stagehand.config.client_secret, 
@@ -19,7 +19,7 @@ module Stagehand::Rack
           #                          )
           # session[:access_token] = response["access_token"]
           # redirect_to root_url
-          [200, {"Content-Type" => "text/html"}, ["test"]]
+          [200, {"Content-Type" => "text/html"}, params]
         else
           @app.call(env)
         end

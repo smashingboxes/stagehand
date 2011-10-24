@@ -38,9 +38,7 @@ module Stagehand
   end
 
   def self.access_token
-    request = ActionDispatch::Request.new(env)
-    request.cookie_jar.signed[:user_id]
-    session[:access_token]
+    request.env['rack.session'][:access_token]
   end
 
   def self.get_with_access_token(path, params)

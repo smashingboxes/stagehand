@@ -19,7 +19,7 @@ module Stagehand::Rack
           #                          )
           # session[:access_token] = response["access_token"]
           # redirect_to root_url
-          [200, {"Content-Type" => "text/html"}, "test"]
+          [200, {"Content-Type" => "text/html"}, ["test"]]
         else
           @app.call(env)
         end

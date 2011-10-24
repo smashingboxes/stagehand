@@ -1,16 +1,25 @@
 require 'yajl'
 require 'stagehand/version'
+require 'stagehand/railtie' if defined? ::Rails::Railtie
 
-class Stagehand::Client
-  def initialize(attributes)
-    @attributes = attributes
-    @client_id = @attributes[:client_id]
-    @client_secret = @attributes[:client_secret]
-    @resource_host = @attributes[:resource_host]
-    @client_host = @attributes[:client_host]
+module Stagehand
+  class Config
+    attr_accessor :client_id, :client_secret, :client_host, :resource_host
   end
 
-  def authorize_url
-    @resource_host + "/oauth/authorize?client_id=#{@client_id}&client_secret=#{@client_secret}&redirect_uri=#{@client_host}/callback"
+  def self.config
+    @@config ||= Config.new
+  end
+
+  def self.configure
+    yield self.config
+  end
+
+  def initialize(attributes)
+    @attributes = attributes
+  end
+
+  def self.authorize_url
+    config.resource_host + "/oauth/authorize?client_id=#{config.client_id}&client_secret=#{config.client_secret}&redirect_uri=#{config.client_host}/callback"
   end
 end

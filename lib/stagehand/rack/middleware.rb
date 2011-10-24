@@ -10,7 +10,7 @@ module Stagehand::Rack
       response = catch :stagehand do
         if request.path == '/callback'
           params = Rack::Utils.parse_query(env['rack.input'].read, "&")
-          response = HTTParty.post(access_token_url, :body => {
+          response = HTTParty.post(Stagehand.access_token_url, :body => {
                                      :client_id => config.client_id, 
                                      :client_secret => config.client_secret, 
                                      :redirect_uri => redirect_uri, 

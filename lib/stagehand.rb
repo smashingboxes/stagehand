@@ -47,4 +47,5 @@ module Stagehand
     params[:oauth_token] = access_token
     HTTParty.get(config.resource_host + path, query: params)
   end
+
 end

@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Stagehand::VERSION
   s.authors     = ["Reed Law"]
   s.email       = ["reed@smashingboxes.com.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/smashingboxes/stagehand"
   s.summary     = %q{client library for Personas (user management) service}
   s.description = %q{Client-side library for manipulating RESTful resources provided by Personas, a Rails + Backbone user managment service}
 
@@ -19,7 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
-  s.add_runtime_dependency "yajl-ruby"
+  s.add_development_dependency 'rspec', '~> 2.7.0'
+  s.add_runtime_dependency 'yajl-ruby', '~> 1.0.0'
 end

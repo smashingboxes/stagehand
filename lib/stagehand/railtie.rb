@@ -11,4 +11,9 @@ class Stagehand::Railtie < Rails::Railtie
       config.client_host = app.config.stagehand[:client_host]
     end
   end
+
+  initializer "stagehand.initialize_middleware" do |app|
+    app.middleware.use ::Stagehand::Rack::Middleware
+  end
+
 end

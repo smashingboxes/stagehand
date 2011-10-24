@@ -7,9 +7,9 @@ Usage
 =====
 
     YourApp::Application.configure do           
-      config.stagehand.client_id = 'YOUR_APP_CLIENT_ID',
-      config.stagehand.client_secret = 'YOUR_APP_CLIENT_SECRET',
-      config.stagehand.resource_host = 'YOUR_APP_RESOURCE_HOST',
+      config.stagehand.client_id = 'YOUR_APP_CLIENT_ID'
+      config.stagehand.client_secret = 'YOUR_APP_CLIENT_SECRET'
+      config.stagehand.resource_host = 'YOUR_APP_RESOURCE_HOST'
       config.stagehand.client_host = 'YOUR_APP_HOST_WITH_PORT'
     end                          
     

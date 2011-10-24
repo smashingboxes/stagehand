@@ -5,7 +5,7 @@ module Stagehand::Rack
     end
 
     def call(env)
-      request = env['stagehand'] = ResourceRequest.new(env)
+      request = env['stagehand'] = Rack::Request.new(env)
 
       response = catch :stagehand do
         if request.path == '/callback'

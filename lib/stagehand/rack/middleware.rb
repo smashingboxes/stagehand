@@ -11,9 +11,9 @@ module Stagehand::Rack
         if request.path == '/callback'
           params = Rack::Utils.parse_query(env['rack.input'].read, "&")
           response = HTTParty.post(Stagehand.access_token_url, :body => {
-                                     :client_id => config.client_id, 
-                                     :client_secret => config.client_secret, 
-                                     :redirect_uri => redirect_uri, 
+                                     :client_id => Stagehand.config.client_id, 
+                                     :client_secret => Stagehand.config.client_secret, 
+                                     :redirect_uri => Stagehand.redirect_uri, 
                                      :code => params["code"],
                                      :grant_type => 'authorization_code'}
                                    )

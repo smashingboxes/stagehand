@@ -1,7 +1,8 @@
 require 'httparty'
 require 'yajl'
-require 'stagehand/version'
+require 'stagehand/rack/middleware'
 require 'stagehand/railtie' if defined? ::Rails::Railtie
+require 'stagehand/version'
 
 module Stagehand
   class Config

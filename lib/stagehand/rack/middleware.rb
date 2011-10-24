@@ -20,8 +20,7 @@ module Stagehand::Rack
           # redirect to root
           env["PATH_INFO"] = "/"
           env["QUERY_STRING"] = ""
-          status, headers, response = @app.call(env)
-          [302, {'Location'=>'/'}, response]
+          [302, {'Location'=>'/'}, []]
         else
           @app.call(env)
         end

@@ -28,4 +28,7 @@ module Stagehand::Rack
       [400, {}, e.message]
     end
   end
+
+  class InvalidRequest < StandardError
+  end
 end

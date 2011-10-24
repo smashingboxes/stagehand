@@ -6,11 +6,13 @@ Stagehand is a client-side library for manipulating RESTful resources provided b
 Usage
 =====
 
-    stagehand = Stagehand.new(
-      :client_id = 'YOUR_APP_CLIENT_ID',
-      :client_secret = 'YOUR_APP_CLIENT_SECRET',
-      :resource_host = 'YOUR_APP_RESOURCE_HOST'
-    )
+    class ApplicationController < ActionController::Base
+      stagehand = Stagehand.new(
+        :client_id = 'YOUR_APP_CLIENT_ID',
+        :client_secret = 'YOUR_APP_CLIENT_SECRET',
+        :resource_host = 'YOUR_APP_RESOURCE_HOST'
+      )
+    end
     
     class SessionsController < ApplicationController
       # stagehand.authorize_url is an OAuth 2.0 url created by the 

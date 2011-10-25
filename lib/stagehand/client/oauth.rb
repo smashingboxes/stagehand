@@ -20,7 +20,7 @@ module Stagehand
       end
 
       def access_token
-        request.env['rack.session'][:access_token]
+        env['rack.session'][:access_token]
       end
 
       def get_with_access_token(path, params)

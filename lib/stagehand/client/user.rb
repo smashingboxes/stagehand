@@ -1,5 +1,7 @@
 module Stagehand
   class Client
+    include HTTParty
+
     # Methods for users
     module User
       def profile

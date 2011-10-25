@@ -2,8 +2,9 @@ module Stagehand
   class Client
     # Methods for users
     module User
-      def profile
-        response = HTTParty.get(Stagehand.config.resource_host + "/profile.json")
+      def account
+        response = HTTParty.get(Stagehand.config.resource_host + "/profile.json", :query => {:oauth_token => Stagehand.access_token})
+        MultiJson.decode(response.body)
       end
     end
   end

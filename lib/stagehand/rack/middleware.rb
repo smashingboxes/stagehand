@@ -8,7 +8,12 @@ module Stagehand::Rack
       request = env['stagehand'] = Rack::Request.new(env)
 
       response = catch :stagehand do
-        if request.path == '/callback'
+        case request.path
+        when '/sign_in'
+          # redirect to OAuth login
+          [302, {'Location'=>Stagehand.authorize_url}, []]
+        when '/callback'
+          # process OAuth token
           token_response = HTTParty.post(Stagehand.access_token_url, :body => {
                                      :client_id => Stagehand.config.client_id, 
                                      :client_secret => Stagehand.config.client_secret, 
@@ -16,10 +21,17 @@ module Stagehand::Rack
                                      :code => request.params['code'],
                                      :grant_type => 'authorization_code'}
                                    )
+          # set cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
-          
           # redirect to root
           [302, {'Location'=>'/'}, []]
+        when '/log_out'
+          # clear cookie and access_token
+          Stagehand.access_token = env['rack.session'][:access_token] = nil
+          # redirect to root
+          [302, {'Location'=>'/'}, []]
+        when '/register'
+          @app.call(env)
         else
           @app.call(env)
         end

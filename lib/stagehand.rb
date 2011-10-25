@@ -1,9 +1,12 @@
+require 'active_support/core_ext/hash/indifferent_access'
+require 'active_model'
 require 'httparty'
+require 'multi_json'
+require 'stagehand/account'
 require 'stagehand/client'
 require 'stagehand/rack/middleware'
 require 'stagehand/railtie' if defined? ::Rails::Railtie
 require 'stagehand/version'
-require 'yajl'
 
 module Stagehand
   mattr_accessor :access_token

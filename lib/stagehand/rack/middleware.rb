@@ -16,7 +16,8 @@ module Stagehand::Rack
                                      :code => request.params['code'],
                                      :grant_type => 'authorization_code'}
                                    )
-          env['rack.session'][:access_token] = token_response["access_token"]
+          Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
+          
           # redirect to root
           [302, {'Location'=>'/'}, []]
         else

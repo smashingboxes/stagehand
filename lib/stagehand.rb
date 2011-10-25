@@ -6,6 +6,8 @@ require 'stagehand/version'
 require 'yajl'
 
 module Stagehand
+  mattr_accessor :access_token
+
   class Config
     attr_accessor :client_id, :client_secret, :client_host, :resource_host
   end
@@ -18,7 +20,7 @@ module Stagehand
     def configure
       yield self.config
     end
-    
+
     # return Stagehand::Client
     def new(options={})
       Stagehand::Client.new(options)

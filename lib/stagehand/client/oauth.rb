@@ -19,12 +19,12 @@ module Stagehand
         Stagehand.config.resource_host + "/logout?redirect_uri=#{Stagehand.config.client_host}"
       end
 
-      def access_token
-        env['rack.session'][:access_token]
-      end
+      # def access_token
+      #   env['rack.session'][:access_token]
+      # end
 
       def get_with_access_token(path, params)
-        params[:oauth_token] = access_token
+        params[:oauth_token] = Stagehand.access_token
         HTTParty.get(Stagehand.config.resource_host + path, query: params)
       end
     end

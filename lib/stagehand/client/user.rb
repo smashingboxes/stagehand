@@ -1,3 +1,5 @@
+require 'httparty'
+
 module Stagehand
   class Client
     # Methods for users

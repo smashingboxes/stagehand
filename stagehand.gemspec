@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   s.add_development_dependency 'rspec', '~> 2.7.0'
   s.add_runtime_dependency 'yajl-ruby', '~> 1.0.0'
+  s.add_runtime_dependency 'httparty', '~> 0.8.1'
 end

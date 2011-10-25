@@ -35,4 +35,10 @@ describe Stagehand do
       Stagehand.access_token == session[:access_token]
     end
   end
+
+  describe "current user" do
+    it "can see his profile" do
+      Stagehand.profile == { username: "Test" }
+    end
+  end
 end

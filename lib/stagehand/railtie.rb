@@ -16,4 +16,8 @@ class Stagehand::Railtie < Rails::Railtie
     app.middleware.use ::Stagehand::Rack::Middleware
   end
 
+  initializer "stagehand." do |app|
+    ActionController::Base.send(:include, Stagehand::Helper)
+    ActionController::Base.helper_method :current_user
+  end
 end

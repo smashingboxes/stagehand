@@ -7,8 +7,6 @@ require 'stagehand/rack/middleware'
 require 'stagehand/railtie' if defined? ::Rails::Railtie
 require 'stagehand/version'
 
-ActionView::Base.send :include, Stagehand::Helper
-
 module Stagehand
   mattr_accessor :access_token
 

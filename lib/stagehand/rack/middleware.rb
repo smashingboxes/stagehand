@@ -24,7 +24,7 @@ module Stagehand::Rack
           # set cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
           # redirect to root
-          [302, {'Location'=>'/'}, []]
+          [200,{"Content-Type"=> "text/html"},["<script>parent.location.href='/';</script>"]]
         when '/log_out'
           # clear cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = nil

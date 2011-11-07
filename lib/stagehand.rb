@@ -5,6 +5,7 @@ require 'stagehand/client'
 require 'stagehand/helper'
 require 'stagehand/rack/middleware'
 require 'stagehand/railtie' if defined? ::Rails::Railtie
+require 'stagehand/account'
 require 'stagehand/version'
 
 module Stagehand

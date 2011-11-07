@@ -2,9 +2,12 @@ require 'active_support/core_ext/module/attribute_accessors'
 require 'httparty'
 require 'multi_json'
 require 'stagehand/client'
+require 'stagehand/helper'
 require 'stagehand/rack/middleware'
 require 'stagehand/railtie' if defined? ::Rails::Railtie
 require 'stagehand/version'
+
+ActionView::Base.send :include, Stagehand::Helper
 
 module Stagehand
   mattr_accessor :access_token

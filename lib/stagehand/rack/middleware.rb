@@ -16,7 +16,7 @@ module Stagehand::Rack
           # process OAuth token
           token_response = HTTParty.post(Stagehand.access_token_url, :body => {
                                      :client_id => Stagehand.config.client_id, 
-                                     :client_secret => Stagehand.config.client_secret, 
+                                     :client_secret => Stagehand.config.client_secret,
                                      :redirect_uri => Stagehand.redirect_uri, 
                                      :code => request.params['code'],
                                      :grant_type => 'authorization_code'}

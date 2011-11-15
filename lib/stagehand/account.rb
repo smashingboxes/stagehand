@@ -10,7 +10,7 @@ module Stagehand
         @account['roles'].each do |r|
           roles << r['name']
         end
-        roles
+        roles.empty? ? ["registered_user"] : roles
       else
         ["guest"]
       end

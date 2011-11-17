@@ -5,5 +5,9 @@ module Stagehand
         @current_user ||= Stagehand::Account.new
       end
     end
+    def log_out_link(text)
+      html = "<a href=\"#\" id=\"log_out\">#{text}</a>"
+      html
+    end
   end
 end

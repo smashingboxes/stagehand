@@ -8,6 +8,7 @@ module Stagehand::Rack
       request = env['stagehand'] = Rack::Request.new(env)
 
       response = catch :stagehand do
+        Stagehand.access_token = env['rack.session'][:access_token]
         case request.path
         when '/sign_in'
           # redirect to OAuth login
@@ -22,16 +23,16 @@ module Stagehand::Rack
             :grant_type => 'authorization_code'}
           )
           # set cookie and access_token
-          Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
+          env['rack.session'][:access_token] = token_response["access_token"]
           # redirect to root and break out of iFrame
           [200,{"Content-Type"=> "text/html"},["<script>parent.location.href='/';</script>"]]
         when '/log_out'
           # clear cookie and access_token
-          Stagehand.access_token = env['rack.session'][:access_token] = env['rack.session'][:account_id] = env['rack.session'][:return_url] = nil
+          env['rack.session'][:access_token] = env['rack.session'][:return_url] = nil
           # redirect to root
           [302, {'Location'=>'/'}, []]
-        when '/register'
-          @app.call(env)
+        when '/env'
+          [200,{"Content-Type"=> "text/html"}, [env.inspect]]
         else
           @app.call(env)
         end

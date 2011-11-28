@@ -34,7 +34,11 @@ module Stagehand::Rack
           [302, {'Location'=>'/'}, []]
         when '/change_password'
           token = Stagehand.password_token
-          [302, {'Location'=>Stagehand.change_password_url(token)}, []]
+          if token
+            [302, {'Location'=>Stagehand.change_password_url(token)}, []]
+          else
+            [302, {'Location'=>Stagehand.authorize_url}, []]
+          end
         when '/env'
           [200,{"Content-Type"=> "text/html"}, [env.inspect]]
         else

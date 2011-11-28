@@ -32,6 +32,9 @@ module Stagehand::Rack
           env['rack.session'][:access_token] = env['rack.session'][:return_url] = nil
           # redirect to root
           [302, {'Location'=>'/'}, []]
+        when '/change_password'
+          token = Stagehand.password_token
+          [302, {'Location'=>Stagehand.change_password_url(token)}, []]
         when '/env'
           [200,{"Content-Type"=> "text/html"}, [env.inspect]]
         else

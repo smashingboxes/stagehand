@@ -8,6 +8,7 @@ module Stagehand::Rack
       request = env['stagehand'] = Rack::Request.new(env)
 
       response = catch :stagehand do
+        # Make sure Stagehand.access_token is always the current session
         Stagehand.access_token = env['rack.session'][:access_token]
         case request.path
         when '/sign_in'
@@ -23,14 +24,21 @@ module Stagehand::Rack
             :grant_type => 'authorization_code'}
           )
           # set cookie and access_token
-          env['rack.session'][:access_token] = token_response["access_token"]
-          # redirect to root and break out of iFrame
-          [200,{"Content-Type"=> "text/html"},["<script>parent.location.href='/';</script>"]]
+          Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
+          # redirect to root
+          [302, {'Location'=>'/'}, []]
         when '/log_out'
           # clear cookie and access_token
           env['rack.session'][:access_token] = env['rack.session'][:return_url] = nil
           # redirect to root
           [302, {'Location'=>'/'}, []]
+        when '/change_password'
+          token = Stagehand.password_token
+          if token.empty?
+            [302, {'Location'=>Stagehand.authorize_url}, []]
+          else
+            [302, {'Location'=>Stagehand.change_password_url(token)}, []]
+          end
         when '/env'
           [200,{"Content-Type"=> "text/html"}, [env.inspect]]
         else

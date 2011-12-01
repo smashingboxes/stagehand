@@ -24,6 +24,6 @@ module Stagehand
       method = method.to_s
       return @account[method] if @account.keys.include?(method)  
       super  
-    end  
+    end
   end
 end

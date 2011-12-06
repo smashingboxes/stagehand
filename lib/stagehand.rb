@@ -25,8 +25,8 @@ module Stagehand
     end
 
     # return Stagehand::Client
-    def new(options={})
-      Stagehand::Client.new(options)
+    def new
+      Stagehand::Client.new
     end
 
     # Delegate to Stagehand::Client

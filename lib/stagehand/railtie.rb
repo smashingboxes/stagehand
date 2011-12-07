@@ -18,6 +18,6 @@ class Stagehand::Railtie < Rails::Railtie
 
   initializer "stagehand." do |app|
     ActionController::Base.send(:include, Stagehand::Helper)
-    ActionController::Base.helper_method :current_user, :log_out_link
+    ActionController::Base.helper_method Stagehand::Helper.instance_methods
   end
 end

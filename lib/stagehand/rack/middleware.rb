@@ -39,6 +39,8 @@ module Stagehand::Rack
           else
             [302, {'Location'=>Stagehand.change_password_url(token)}, []]
           end
+        when /\/go\/(.+)$/
+          [302, {'Location'=>Stagehand.go($1)}, []]
         when '/env'
           [200,{"Content-Type"=> "text/html"}, [env.inspect]]
         else

@@ -1,7 +1,7 @@
 module Stagehand
   class Account
     def initialize
-      @account ||= Stagehand.get_with_access_token("/profile.json", { page: 1 }).parsed_response
+      @account ||= Stagehand.get_with_access_token("/profile.json", { page: 1 })
     end
 
     def roles
@@ -22,8 +22,11 @@ module Stagehand
 
     def method_missing(method, *params)
       method = method.to_s
-      return @account[method] if @account.keys.include?(method)  
-      super  
+      if @account.keys.include?(method)
+        return @account[method]
+      else
+        return ""
+      end
     end
   end
 end

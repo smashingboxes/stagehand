@@ -45,7 +45,7 @@ module Stagehand
       end
 
       def go(token)
-        Stagehand.config.resource_host + "/go/" + token
+        Stagehand.config.resource_host + "/go/" + token + "?client_id=#{Stagehand.config.client_id}&client_secret=#{Stagehand.config.client_secret}&redirect_uri=#{Stagehand.config.client_host}/callback"
       end
     end
   end

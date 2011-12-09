@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 module Stagehand::Rack
   class Middleware
     def initialize(app)
@@ -25,8 +27,13 @@ module Stagehand::Rack
           )
           # set cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
-          # redirect to root
-          [302, {'Location'=>'/'}, []]
+          if request.params['link_url'].present? && request.params['message'].present?
+            params = {}
+            params[:message] = request.params['message']
+            [302, {'Location'=> append_to_uri(request.params['link_url'],params)}, []]
+          else
+            [302, {'Location'=>'/'}, []]
+          end
         when '/log_out'
           # clear cookie and access_token
           env['rack.session'][:access_token] = env['rack.session'][:return_url] = nil
@@ -50,7 +57,17 @@ module Stagehand::Rack
     rescue InvalidRequest => e
       [400, {}, e.message]
     end
+
+
+    private
+
+    def append_to_uri(uri, parameters = {})
+      u = Addressable::URI.parse(uri)
+      u.query_values = (u.query_values || {}).merge(parameters)
+      u.to_s
+    end
   end
+
 
   class InvalidRequest < StandardError
   end

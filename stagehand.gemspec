@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
+  s.add_dependency 'addressable', '~>2.2'
   s.add_dependency 'multi_json', '~> 1.0'
   s.add_runtime_dependency 'httparty', '~> 0.8.1'
 end

@@ -37,7 +37,7 @@ module Stagehand
       def password_token
         params = {}
         params[:redirect_uri] = Stagehand.config.client_host
-        get_with_access_token("/generate_password_reset_token", params).body
+        get_with_access_token("/generate_password_reset_token", params)
       end
       
       def change_password_url(token)

@@ -22,7 +22,7 @@ module Stagehand
 
     def method_missing(method, *params)
       method = method.to_s
-      if @account.keys.include?(method)
+      if @account && @account.keys.include?(method)
         return @account[method]
       else
         return ""

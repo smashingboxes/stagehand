@@ -39,7 +39,7 @@ module Stagehand::Rack
           env['rack.session'][:access_token] = env['rack.session'][:return_url] = nil
           # redirect to root
           [302, {'Location'=>'/'}, []]
-        when '/change_password'
+       when '/change_password'
           token = Stagehand.password_token
           if token.empty?
             [302, {'Location'=>Stagehand.authorize_url}, []]

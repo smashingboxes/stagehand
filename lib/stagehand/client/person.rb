@@ -33,17 +33,21 @@ module Stagehand
 
       # Public: Updates a person's info
       #
-      # id      - The person's id
       # attrs   - The hash of attributes to be updated.
       #
       # Examples
       #
-      #   create_by_email("4e691653fc595d0001000002", attrs)
-      #   # => "{\"id\":\"4e691653fc595d0001000002\"}"
+      #   create_by_email(attrs)
+      #   # => true
       #
-      # Returns a person JSON object
-      def update_info(id, attrs)
-        put_with_access_token("/people/#{id}", attrs)
+      # Returns true or error messages
+      def update_info(attrs)
+        response = put_with_access_token("/people/#{attrs['id']}", attrs)
+        if response["message"] == "ok"
+          return true
+        else
+          return response
+        end
       end
     end
   end

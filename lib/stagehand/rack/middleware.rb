@@ -35,7 +35,7 @@ module Stagehand::Rack
           end
         when '/log_out'
           # clear cookie and access_token
-          env['rack.session'] = nil
+          env['rack.session'] = {}
           # redirect to root
           [302, {'Location'=>'/'}, []]
         when '/change_password'

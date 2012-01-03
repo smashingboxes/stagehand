@@ -9,7 +9,7 @@ require 'stagehand/account'
 require 'stagehand/version'
 
 module Stagehand
-  mattr_accessor :access_token
+  mattr_accessor :access_token, :current_profile
 
   class Config
     attr_accessor :client_id, :client_secret, :client_host, :resource_host

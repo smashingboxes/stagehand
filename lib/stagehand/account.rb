@@ -1,7 +1,7 @@
 module Stagehand
   class Account
     def initialize
-      @account ||= Stagehand.get_with_access_token("/profile.json", { page: 1 })
+      @account ||= Stagehand.current_profile
     end
 
     def roles

@@ -12,6 +12,7 @@ module Stagehand::Rack
       response = catch :stagehand do
         # Make sure Stagehand.access_token is always the current session
         Stagehand.access_token = env['rack.session'][:access_token]
+        Stagehand.current_profile = env['rack.session'][:current_profile]
         case request.path
         when '/sign_in'
           if request.params['link_url'].present?
@@ -31,6 +32,7 @@ module Stagehand::Rack
           )
           # set cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
+          Stagehand.current_profile = env['rack.session'][:current_profile] = Stagehand.get_with_access_token("/profile.json", { page: 1 })
           if request.params['link_url'].present?
             params = {:message => request.params['message']}
             [302, {'Location'=> append_to_uri(request.params['link_url'],params)}, []]

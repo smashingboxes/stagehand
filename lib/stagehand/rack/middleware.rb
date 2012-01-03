@@ -14,8 +14,12 @@ module Stagehand::Rack
         Stagehand.access_token = env['rack.session'][:access_token]
         case request.path
         when '/sign_in'
-          # redirect to OAuth login
-          [302, {'Location'=>Stagehand.authorize_url}, []]
+          if request.params['link_url'].present?
+            [302, {'Location'=>Stagehand.authorize_url(request.params['link_url'])}, []]
+          else
+            # redirect to OAuth login
+            [302, {'Location'=>Stagehand.authorize_url("/")}, []]
+          end
         when '/callback'
           # process OAuth token
           token_response = HTTParty.post(Stagehand.access_token_url, :body => {
@@ -27,7 +31,7 @@ module Stagehand::Rack
           )
           # set cookie and access_token
           Stagehand.access_token = env['rack.session'][:access_token] = token_response["access_token"]
-          if request.params['link_url'].present? && request.params['message'].present?
+          if request.params['link_url'].present?
             params = {:message => request.params['message']}
             [302, {'Location'=> append_to_uri(request.params['link_url'],params)}, []]
           else
@@ -72,7 +76,7 @@ module Stagehand::Rack
     def change_password
       token = Stagehand.password_token
       if token.empty?
-        [302, {'Location'=>Stagehand.authorize_url}, []]
+        [302, {'Location'=>Stagehand.authorize_url("/")}, []]
       else
         [302, {'Location'=>Stagehand.change_password_url(token)}, []]
       end

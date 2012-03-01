@@ -14,7 +14,7 @@ module Stagehand
       #
       # Returns a person JSON object
       def find_by_email(email)
-        get_with_access_token("/people/find_by_email/#{email}")
+        get_with_client_token("/people/find_by_email/#{email}")
       end
 
       # Public: Creates a person with an email address

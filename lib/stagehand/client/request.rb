@@ -2,7 +2,7 @@ module Stagehand
   class Client
     # Methods for people
     module Request
-      # Public: GETs a resource with authorization
+      # Public: GETs a resource with user's authorization token
       #
       # path   - The GET path
       # params - The GET params (optional)
@@ -16,6 +16,30 @@ module Stagehand
       def get_with_access_token(path, params = {})
         params[:oauth_token] = Stagehand.access_token
         HTTParty.get(Stagehand.config.resource_host + path, query: params).parsed_response
+      end
+
+      # Public: GETs a resource with client's authorization
+      #
+      # path   - The GET path
+      # params - The GET params (optional)
+      #
+      # Examples
+      #
+      #   get_with_access_token("/generate_password_reset_token", params)
+      #   # => "KWg5kkjkQvhJNnTGhibJ7w"
+      #
+      # Returns a person JSON object
+      def get_with_client_token(path, params = {})
+        params[:oauth_token] = Stagehand.get_client_token
+        HTTParty.get(Stagehand.config.resource_host + path, query: params).parsed_response
+      end
+
+      def get_client_token
+        url = Stagehand.access_token_url
+        params[:client_id] = Stagehand.client_id
+        params[:client_secret] = Stagehand.client_secret
+        params[:grant_type] = "client_credentials"
+        HTTParty.post(url, body: params, headers: { 'Accept' => 'application/json' }).parsed_response
       end
 
       # Public: POSTs an authorized request

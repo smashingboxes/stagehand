@@ -36,10 +36,11 @@ module Stagehand
 
       def get_client_token
         url = Stagehand.access_token_url
-        params[:client_id] = Stagehand.client_id
-        params[:client_secret] = Stagehand.client_secret
+        params = {}
+        params[:client_id] = Stagehand.config.client_id
+        params[:client_secret] = Stagehand.config.client_secret
         params[:grant_type] = "client_credentials"
-        HTTParty.post(url, body: params, headers: { 'Accept' => 'application/json' }).parsed_response
+        HTTParty.post(url, body: params, headers: { 'Accept' => 'application/json' }).parsed_response["access_token"]
       end
 
       # Public: POSTs an authorized request

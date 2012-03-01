@@ -27,15 +27,13 @@ module Stagehand
       #
       # Returns a login token
       def login_token(email, options = {})
-        params = {}
-        params[:login_link] = options
+        params = { :login_link => options }
         params[:login_link][:email] = email
         post_with_access_token("/login_links", params)
       end
 
       def password_token
-        params = {}
-        params[:redirect_uri] = Stagehand.config.client_host
+        params = {:redirect_uri => Stagehand.config.client_host}
         get_with_access_token("/generate_password_reset_token", params)
       end
       
@@ -45,6 +43,24 @@ module Stagehand
 
       def go(token)
         Stagehand.config.resource_host + "/go/" + token + "?client_id=#{Stagehand.config.client_id}&client_secret=#{Stagehand.config.client_secret}&redirect_uri=#{Stagehand.config.client_host}/callback"
+      end
+
+      # Public: Registers a new user
+      #
+      # email    - user's email
+      # password - user's password
+      #
+      # Examples
+      #
+      #   register("test@example.com", "foo")
+      #
+      # Logs a new user in or redirects to the remember password page 
+      # if that user already exists.
+      def register(email, password)
+        params = {:account => {:email => email, :password => password, :password_confirmation => password}, :client_id => Stagehand.config.client_id}
+        url = Stagehand.config.resource_host + "/accounts"
+        headers = { 'Accept' => 'application/json' }
+        response = HTTParty.post(url, body: params, headers: headers).parsed_response
       end
     end
   end
